@@ -7,14 +7,17 @@ import com.epf.rentmanager.service.VehicleService;
 
 public class Test {
     public static void main(String args[]){
+        /*
+        ClientService clientService = null;
+        ReservationService reservationService = null;
         try {
-            System.out.println(ClientService.getInstance().findAll());
+            System.out.println(clientService.findAll());
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            System.out.println(ClientService.getInstance().findById(3));
+            System.out.println(clientService.findById(3));
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
@@ -32,10 +35,11 @@ public class Test {
         }
 
         try {
-            System.out.println(ReservationService.getInstance().findAll());
+            System.out.println(reservationService.findAll());
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
+        */
     }
 
 

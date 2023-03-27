@@ -14,16 +14,18 @@ import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.persistence.ConnectionManager;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.stereotype.Repository;
+
+@Repository
 
 public class ReservationDao {
 
-	private static ReservationDao instance = null;
-	private ReservationDao() {}
-	public static ReservationDao getInstance() {
-		if(instance == null) {
-			instance = new ReservationDao();
-		}
-		return instance;
+	private ClientDao clientDao;
+	private VehicleDao vehicleDao;
+
+	private ReservationDao(ClientDao clientDao, VehicleDao vehicleDao) {
+		this.vehicleDao= vehicleDao;
+		this.clientDao = clientDao;
 	}
 	
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
@@ -59,9 +61,9 @@ public class ReservationDao {
 			while(rs.next()){
 				int id = rs.getInt("id");
 				int client_id = rs.getInt("client_id");
-				Client client = ClientDao.getInstance().findById(client_id);
+				Client client = clientDao.findById(client_id);
 				int vehicle_id = rs.getInt("vehicle_id");
-				Vehicle vehicle = VehicleDao.getInstance().findById(vehicle_id);
+				Vehicle vehicle = vehicleDao.findById(vehicle_id);
 				LocalDate debut = rs.getDate("debut").toLocalDate();
 				LocalDate fin = rs.getDate("fin").toLocalDate();
 
