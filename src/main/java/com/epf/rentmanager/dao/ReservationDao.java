@@ -1,9 +1,6 @@
 package com.epf.rentmanager.dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +29,7 @@ public class ReservationDao {
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
+	private static final String FIND_RESERVATIONS_BY_ID_QUERY = "SELECT id,vehicle_id, client_id, debut, fin FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 		
 	public long create(Reservation reservation) throws DaoException {
@@ -75,4 +73,29 @@ public class ReservationDao {
 		}
 		return reservations;
 	}
+
+	public Reservation findById(long id) throws DaoException {
+
+		Reservation reservation = new Reservation();
+		try{
+			Connection connection = ConnectionManager.getConnection();
+			PreparedStatement stat = connection.prepareStatement(FIND_RESERVATIONS_BY_ID_QUERY);
+			stat.setLong(1,id);
+			ResultSet rs = stat.executeQuery();
+			while(rs.next()){
+				int client_id = rs.getInt("client_id");
+				Client client = clientDao.findById(client_id);
+				int vehicle_id = rs.getInt("vehicle_id");
+				Vehicle vehicle = vehicleDao.findById(vehicle_id);
+				LocalDate debut = rs.getDate("debut").toLocalDate();
+				LocalDate fin = rs.getDate("fin").toLocalDate();
+
+				reservation = new Reservation(id,client,vehicle,debut,fin);
+			}
+		} catch (SQLException e){
+			throw new RuntimeException(e);
+		}
+		return reservation;
+	}
+
 }

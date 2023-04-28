@@ -20,11 +20,6 @@ public class VehicleService {
 		this.vehicleDao = vehicleDao;
 	}
 
-	public long create(Vehicle vehicle) throws ServiceException {
-		// TODO: créer un véhicule
-
-		return 0;
-	}
 
 	public Vehicle findById(long id) throws ServiceException {
 		try{
@@ -42,6 +37,15 @@ public class VehicleService {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+
+	public long create(Vehicle vehicle) throws ServiceException {
+		try {
+			return this.vehicleDao.create(vehicle);
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	public int count() throws ServiceException {

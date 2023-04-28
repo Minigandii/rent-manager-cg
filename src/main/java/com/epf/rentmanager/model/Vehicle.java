@@ -36,8 +36,8 @@ public class Vehicle {
         this.id = id;
     }
 
-    public void setNbPlaces(int nbPlaces) {
-        this.nb_places = nbPlaces;
+    public void setNbPlaces(int nb_places) {
+        this.nb_places = nb_places;
     }
 
     public void setConstructeur(String constructeur) {

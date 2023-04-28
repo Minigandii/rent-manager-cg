@@ -21,6 +21,9 @@ public class Client {
     }
 
     // Setter
+    public void setId(long id) {
+        this.id = id;
+    }
     public void setNom(String nom) {
         this.nom = nom;
     }
@@ -35,6 +38,9 @@ public class Client {
     }
 
     // getter
+    public long getId() {
+        return id;
+    }
     public String getNom() {
         return nom;
     }
