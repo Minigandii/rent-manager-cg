@@ -23,10 +23,13 @@ public class ReservationService {
         this.reservationDao = reservationDao;
     }
 
-    public long create(Reservation reservation) throws ServiceException {
-        // TODO: créer une Reservation
-
-        return 0;
+    public long create(Reservation reservation) throws DaoException{
+        try {
+            return this.reservationDao.create(reservation);
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new DaoException();
+        }
     }
 
 

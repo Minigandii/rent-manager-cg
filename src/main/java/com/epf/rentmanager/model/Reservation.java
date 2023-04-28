@@ -17,6 +17,13 @@ public class Reservation {
         this.dateFin = dateFin;
     }
 
+    public Reservation(Client client, Vehicle vehicle, LocalDate dateDebut, LocalDate dateFin) {
+        this.client = client;
+        this.vehicle = vehicle;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+    }
+
     public Reservation() {
     }
 

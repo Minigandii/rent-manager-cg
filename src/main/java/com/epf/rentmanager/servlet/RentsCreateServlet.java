@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
@@ -30,6 +31,7 @@ public class RentsCreateServlet extends HttpServlet {
     private ClientService clientService;
     @Autowired
     private ReservationService reservationService;
+    Reservation reservation;
 
     @Override
     public void init() throws ServletException {
@@ -54,21 +56,21 @@ public class RentsCreateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        Reservation reservation = null;
         try {
-            reservation = new Reservation(Integer.parseInt(request.getParameter("id")),
+            LocalDate dateDebut = LocalDate.parse(request.getParameter("dateDebut"));
+            LocalDate dateFin = LocalDate.parse(request.getParameter("dateFin"));
+            reservation = new Reservation(
                     clientService.findById(Integer.parseInt(request.getParameter("client"))),
                     vehicleService.findById(Integer.parseInt(request.getParameter("vehicle"))),
-                    LocalDate.parse(request.getParameter("dateDebut"), formatter),
-                    LocalDate.parse(request.getParameter("dateFin"), formatter));
+                    dateDebut,
+                    dateFin);
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
         try {
             reservationService.create(reservation);
-        } catch (ServiceException e) {
-            e.printStackTrace();
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
         }
         response.sendRedirect(request.getContextPath() + "/rents");
     }
