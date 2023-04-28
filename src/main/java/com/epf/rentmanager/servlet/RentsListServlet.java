@@ -41,10 +41,10 @@ public class RentsListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Reservation> resas = reservationService.findAll();
-            request.setAttribute("resas", resas);
-            request.setAttribute("users", clientService.findAll());
-            request.setAttribute("cars", vehicleService.findAll());
+            List<Reservation> reservations = reservationService.findAll();
+            request.setAttribute("reservations", reservations);
+            System.out.println("reservations");
+            System.out.println(reservations);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

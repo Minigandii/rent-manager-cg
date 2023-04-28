@@ -33,8 +33,8 @@ public class VehicleListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<Vehicle> vehicle = vehicleService.findAll();
-            request.setAttribute("vehicles", vehicle);
+            List<Vehicle> vehicles = vehicleService.findAll();
+            request.setAttribute("vehicles", vehicles);
         } catch (ServiceException e) {
             e.printStackTrace();
         }

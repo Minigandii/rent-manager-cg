@@ -35,14 +35,14 @@
                                     <th>Action</th>
                                 </tr>
                                     <tr>
-                                        <c:forEach items="${reservationList}" var="reservation">
+                                        <c:forEach items="${reservations}" var="reservation">
                                             <td>${reservation.id}</td>
-                                            <td>${reservation.getVehicle().getModele()}</td>
-                                            <td>${reservation.getClient().getNom()}</td>
-                                            <td>${reservation.getDateDebut()}</td>
-                                            <td>${reservation.getDateFin()}</td>
+                                            <td>${reservation.vehicle.constructeur}</td>
+                                            <td>${reservation.client.nom}</td>
+                                            <td>${reservation.dateDebut}</td>
+                                            <td>${reservation.dateFin}</td>
                                             <td>
-                                                <a class="btn btn-primary disabled" href="car-detail.html">
+                                                <a class="btn btn-primary disabled" href="#">
                                                     <i class="fa fa-play"></i>
                                                 </a>
                                                 <a class="btn btn-success disabled" href="#">

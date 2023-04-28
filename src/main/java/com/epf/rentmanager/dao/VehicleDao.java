@@ -73,20 +73,4 @@ public class VehicleDao {
 		return vehicles;
 	}
 
-	public long create(Vehicle vehicle) throws DaoException {
-		try {
-			Connection conn = ConnectionManager.getConnection();
-			PreparedStatement stat = conn.prepareStatement(CREATE_VEHICLE_QUERY,
-					Statement.RETURN_GENERATED_KEYS);
-			stat.setString(1, vehicle.getConstructeur());
-			stat.setString(3, vehicle.getModele());
-			stat.setInt(2, vehicle.getNbPlaces());
-			long key = ((PreparedStatement) stat).executeUpdate();
-			conn.close();
-			return key;
-		} catch (SQLException e) {
-			throw new DaoException();
-		}
-	}
-
 }
