@@ -19,11 +19,15 @@ public class ClientService {
 		this.clientDao = clientDao;
 	}
 
-	
-	
-	public long create(Client client) throws ServiceException {
-		// TODO: créer un client
-		return 0;
+
+
+	public long create(Client client) throws DaoException{
+		try {
+			return this.clientDao.create(client);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new DaoException();
+		}
 	}
 
 	public Client findById(long id) throws ServiceException {

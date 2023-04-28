@@ -38,12 +38,11 @@
 
                                 <c:forEach items="${vehicles}" var="vehicle">
                                     <td>${vehicle.id}.</td>
-                                    <td>${vehicle.nb_places}</td>
                                     <td>${vehicle.constructeur}</td>
                                     <td>${vehicle.modele}</td>
-                                    <!--<td>John Doe</td>-->
+                                    <td>4</td> <!--<td> nb_places bug</td>-->
                                     <td>
-                                        <a class="btn btn-primary disabled" href="car-detail.html">
+                                        <a class="btn btn-primary disabled" href="#">
                                             <i class="fa fa-play"></i>
                                         </a>
                                         <a class="btn btn-success disabled" href="#">

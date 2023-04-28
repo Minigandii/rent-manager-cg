@@ -47,11 +47,6 @@ public class VehicleCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                 Vehicle vehicle = new Vehicle(Integer.parseInt(request.getParameter("id")),Integer.parseInt(request.getParameter("nb_places")),request.getParameter("constructeur"),request.getParameter("modele"));
-                try {
-                    vehicleService.create(vehicle);
-                } catch (ServiceException e) {
-                    e.printStackTrace();
-                }
         //doGet(request, response);
         response.sendRedirect("/rentmanager/cars");  
     }

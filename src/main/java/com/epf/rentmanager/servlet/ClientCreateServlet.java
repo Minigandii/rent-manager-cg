@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.service.ClientService;
@@ -24,6 +25,7 @@ import org.springframework.web.server.ServerErrorException;
 public class ClientCreateServlet extends HttpServlet {
     @Autowired
     private ClientService clientService;
+    Client client;
 
 
     @Override
@@ -45,18 +47,17 @@ public class ClientCreateServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-        System.out.println(request.getParameter("birthdate"));
-        Client client = new Client(Integer.parseInt(request.getParameter("id")),request.getParameter("nom"),request.getParameter("prenom"),request.getParameter("email"),LocalDate.parse(request.getParameter("naissance"), formatter));
-        System.out.println(client);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            clientService.create(client);
-        } catch (ServerErrorException | ServiceException e) {
-            e.printStackTrace();
+            String nom=request.getParameter("nom");
+            String prenom=request.getParameter("prenom");
+            LocalDate naissance = LocalDate.parse(request.getParameter("naissance"));
+            String email=request.getParameter("email");
+            client = new Client(nom,prenom,email, naissance);
+            request.setAttribute("client", clientService.create(client));
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
         }
-        //doGet(request, response);
-        response.sendRedirect("/rentmanager/users");
+        this.doGet(request,response);
     }
 }

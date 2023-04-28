@@ -40,7 +40,7 @@
                                         <td>${user.nom}</td>
                                         <td>${user.email}</td>
                                         <td>
-                                            <a class="btn btn-primary" href="#">
+                                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/users/details?id=${user.id}">
                                                 <i class="fa fa-play"></i>
                                             </a>
                                             <a class="btn btn-success" href="#">
@@ -52,24 +52,6 @@
                                         </td>
                                     </tr>
                                 </c:forEach>
-                                <!--
-                                <tr>
-                                    <td>2.</td>
-                                    <td>Jane</td>
-                                    <td>Doe</td>
-                                    <td>jane.doe@epf.fr</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="${pageContext.request.contextPath}/users/details?id=2">
-                                            <i class="fa fa-play"></i>
-                                        </a>
-                                        <a class="btn btn-success disabled" href="#">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
-                                        <a class="btn btn-danger disabled" href="#">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr> -->
                             </table>
                         </div>
                         <!-- /.box-body -->
